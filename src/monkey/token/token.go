@@ -33,3 +33,15 @@ const (
 	FUNCTION = "FUNCTION"
 	LET = "LET"
 )
+
+var keywords = map[string]TokenType{
+	"fn": FUNCTION,
+	"let": LET,
+}
+// 检查关键字判断给定的标识符是否是关键字，以此区分开关键字和用户定义的标识符
+func LookupIdent(ident string) TokenType {
+	if tok, ok :=keywords[ident]; ok {
+		return tok
+	}
+	return IDENT
+}
