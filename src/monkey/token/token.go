@@ -19,6 +19,13 @@ const (
 	//运算符
 	ASSIGN = "="
 	PLUS = "+"
+	MINUS = "-"
+	BANG = "!"
+	ASTERISK = "*"
+	SLASH = "/"
+	
+	LT = "<"
+	GT = ">"
 
 	//分隔符
 	COMMA = ","
@@ -32,11 +39,21 @@ const (
 	//关键字
 	FUNCTION = "FUNCTION"
 	LET = "LET"
+	TRUE = "TRUE"
+	FALSE = "FALSE"
+	IF = "IF"
+	ELSE = "ELSE"
+	RETURN = "RETURN"
 )
 
 var keywords = map[string]TokenType{
 	"fn": FUNCTION,
 	"let": LET,
+	"true": TRUE,
+	"false": FALSE,
+	"if": IF,
+	"else": ELSE,
+	"return": RETURN,
 }
 // 检查关键字判断给定的标识符是否是关键字，以此区分开关键字和用户定义的标识符
 func LookupIdent(ident string) TokenType {
