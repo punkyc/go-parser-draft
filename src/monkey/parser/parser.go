@@ -5,7 +5,7 @@ import (
 	"monkey/ast"
 	"monkey/lexer"
 	"monkey/token"
-	//"strconv"
+	"strconv"
 )
 
 type Parser struct {
@@ -27,6 +27,7 @@ func New(l *lexer.Lexer) *Parser {
 
 	p.prefixParseFns = make(map[token.TokenType]prefixParseFn) 
 	p.registerPrefix(token.IDENT, p.parseIdentifier)
+	p.registerPrefix(token.INT, p.parseIntegerLiteral)
 
 	// 获取两个词法单元，以设置curToken和peekToken
 	p.nextToken()
@@ -126,7 +127,7 @@ func (p *Parser) peekError(t token.TokenType) {
 
 type (
 	prefixParseFn func() ast.Expression //前缀解析函数
-	infixParseFn func() ast.Expression //中缀解析函数
+	infixParseFn func(ast.Expression) ast.Expression //中缀解析函数
 )
 
 func (p *Parser) registerPrefix(tokenType token.TokenType, fn prefixParseFn) {
@@ -171,4 +172,21 @@ func (p *Parser) parseExpression(precedence int) ast.Expression {
 
 func (p *Parser) parseIdentifier() ast.Expression {
 	return &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
+}
+
+func (p *Parser) parseIntegerLiteral() ast.Expression {
+	lit := &ast.IntegerLiteral{Token: p.curToken}
+
+	//把p.curToken.Literal中字符串转换为int64
+	value, err := strconv.ParseInt(p.curToken.Literal, 0, 64)
+
+	if err != nil {
+		msg := fmt.Sprintf("could not parse %q as integer", p.curToken.Literal)
+		p.errors = append(p.errors, msg)
+		return nil
+	}
+
+	lit.Value = value
+
+	return lit
 }
