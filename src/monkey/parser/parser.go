@@ -5,6 +5,7 @@ import (
 	"monkey/ast"
 	"monkey/lexer"
 	"monkey/token"
+	//"strconv"
 )
 
 type Parser struct {
@@ -23,12 +24,13 @@ func New(l *lexer.Lexer) *Parser {
 		l: l,
 		errors: []string{},
 	}
-	// 获取两个词法单元，以设置curToken和peekToken
-	p.nextToken()
-	p.nextToken()
 
 	p.prefixParseFns = make(map[token.TokenType]prefixParseFn) 
 	p.registerPrefix(token.IDENT, p.parseIdentifier)
+
+	// 获取两个词法单元，以设置curToken和peekToken
+	p.nextToken()
+	p.nextToken()
 
 	return p
 }
