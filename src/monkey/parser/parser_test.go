@@ -133,7 +133,7 @@ func TestIdentifierExpression(t *testing.T) {
 		t.Errorf("ident.TokenLiteral not %s, got=%s", "foobar", ident.TokenLiteral())
 	}
 }
-/* unknown error 
+
 func TestIntegerLiteralExpression(t *testing.T) {
 	input := "5;"
 	l := lexer.New(input)
@@ -161,7 +161,6 @@ func TestIntegerLiteralExpression(t *testing.T) {
 		t.Errorf("literal.TokenLiteral not %s. got =%s", "5", literal.TokenLiteral())
 	}
 }
-*/
 
 func TestParsingPrefixExpressions(t *testing.T) {
 	prefixTests := []struct {

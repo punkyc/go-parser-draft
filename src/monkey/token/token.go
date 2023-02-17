@@ -10,7 +10,7 @@ type Token struct {
 
 const (
 	ILLEGAL = "ILLEGAL"
-	EOF ="INT"
+	EOF ="EOF"
 
 	//标识符 + 字面量
 	IDENT = "IDENT" //add, foobar, x, y, ...
