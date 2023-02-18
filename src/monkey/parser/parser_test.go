@@ -216,7 +216,7 @@ func testInterLiteral(t *testing.T, il ast.Expression, value int64) bool {
 
 	return true
 }
-/*
+
 func TestParsingInfixExpressions(t *testing.T) {
 	infixTests := []struct {
 		input string
@@ -266,26 +266,24 @@ func TestParsingInfixExpressions(t *testing.T) {
 		}
 	}
 }
-*/
+
 func TestOperatorPrecedenceParsing(t *testing.T) {
-	tests := [] struct {
+	tests := []struct {
 		input string 
 		expected string
 	}{
 		{"-a * b", "((-a) * b)",},
 		{"!-a", "(!(-a))",},
-		/*{"a + b + c", "((a + b) + c)",},
+		{"a + b + c", "((a + b) + c)",},
 		{"a + b - c", "((a + b) - c)",},
 		{"a * b * c", "((a * b) * c)",},
 		{"a * b / c", "((a * b) / c)",},
 		{"a + b / c", "(a + (b / c))",},
-		{"a + b * c + d / e - f", "(((a + (b * c)) + (d / e)) -f)",},
-/*
+		{"a + b * c + d / e - f", "(((a + (b * c)) + (d / e)) - f)",},
 		{"3 + 4; -5 * 5", "(3 + 4)((-5) * 5)",},
-		{"5 > 4 == 3 < 4", "((5 > 4) == (3 < 4)",},
-		{"5 < 4 != 3 > 4", "((5 < 4) != (3 > 4)",},
-		{"3 + 4 * 5 == 3 * 1 + 4 * 5", "((3 + (4 * 5)) == ((3 * 1) + (4*5)))",},
-		*/
+		{"5 > 4 == 3 < 4", "((5 > 4) == (3 < 4))",},
+		{"5 < 4 != 3 > 4", "((5 < 4) != (3 > 4))",},
+		{"3 + 4 * 5 == 3 * 1 + 4 * 5", "((3 + (4 * 5)) == ((3 * 1) + (4 * 5)))",},
 	}
 
 	for _, tt := range tests {
