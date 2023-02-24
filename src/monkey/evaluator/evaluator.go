@@ -5,6 +5,12 @@ import (
 	"monkey/object"
 )
 
+var (
+	NULL = &object.Null{}
+	TRUE = &object.Boolean{Value: true}
+	FALSE = &object.Boolean{Value: false}
+)
+
 func Eval(node ast.Node) object.Object {
 	switch node := node.(type) {
 	//语句
@@ -15,6 +21,8 @@ func Eval(node ast.Node) object.Object {
 	//表达式
 	case *ast.IntegerLiteral:
 		return &object.Integer{Value: node.Value}
+	case *ast.Boolean:
+		return nativeBooleanObject(node.Value)
 	}
 
 	return nil
@@ -28,4 +36,11 @@ func evalStatements(stmts []ast.Statement) object.Object {
 	}
 
 	return result
+}
+
+func nativeBooleanObject(input bool) *object.Boolean {
+	if input {
+		return TRUE
+	}
+	return FALSE
 }
