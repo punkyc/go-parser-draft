@@ -87,6 +87,9 @@ func (l * Lexer) NextToken() token.Token {
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
+	case '"':
+		tok.Type = token.STRING
+		tok.Literal = l.readString()
 	// 检查是不是标识符	
 	default:
 		if isLetter(l.ch) {
@@ -138,4 +141,15 @@ func (l *Lexer) readNumber() string {
 
 func isDigit(ch byte) bool {
 	return '0' <=ch && ch <= '9'
+}
+
+func (l *Lexer) readString() string {
+	position := l.position + 1
+	for {
+		l.readChar()
+		if l.ch == '"' || l.ch == 0 {
+			break
+		}
+	}
+	return l.input[position:l.position]
 }
