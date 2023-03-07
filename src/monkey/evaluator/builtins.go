@@ -2,6 +2,7 @@ package evaluator
 
 import (
 	"monkey/object"
+	"fmt"
 )
 
 //为内置函数创建一个单独的环境
@@ -96,6 +97,16 @@ var builtins = map[string]*object.Builtin {
 			copy(newElements, arr.Elements)
 			newElements[length] = args[1]
 			return &object.Array{Elements: newElements}
+		},
+	},
+
+	"puts": &object.Builtin{
+		Fn: func(args ...object.Object) object.Object {
+			for _, arg := range args {
+				fmt.Println(arg.Inspect())
+			}
+
+			return NULL
 		},
 	},
 }
